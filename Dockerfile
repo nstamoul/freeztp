@@ -2,7 +2,7 @@ FROM python:2.7-slim
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 RUN sed -i "s/deb.debian.org/archive.debian.org/g" /etc/apt/sources.list && sed -i "s/security.debian.org/archive.debian.org/g" /etc/apt/sources.list && sed -i "/buster-updates/d" /etc/apt/sources.list && apt-get update && apt-get install -y --no-install-recommends gcc libc-dev && rm -rf /var/lib/apt/lists/*
-COPY ztp /app/ztp
+COPY ztp.py /app/ztp
 COPY nstam_ipaddr.py /app/nstam_ipaddr.py
 RUN ln -s /app/ztp /usr/local/bin/ztp
 RUN ln -s /usr/local/bin/python /usr/bin/python
