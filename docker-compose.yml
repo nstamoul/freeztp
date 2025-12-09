@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  freeztp:
+    image: ghcr.io/nstamoul/freeztp:latest
+    platform: linux/arm64
+    container_name: freeztp
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - /etc/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf
+      - /etc/ztp:/etc/ztp:rw
+      - /opt/tftp:/opt/tftp:rw
+      - /var/lib/dhcp/dhcpd.leases:/var/lib/dhcp/dhcpd.leases:ro
+      # Uncomment to override bundled ztp.py with a local copy
+      # - ./ztp:/app/ztp:ro
+    command: ["python", "/app/ztp", "run"]
